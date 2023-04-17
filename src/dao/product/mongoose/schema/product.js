@@ -1,0 +1,24 @@
+const mongoose = require("mongoose");
+
+await mongoose.connect(
+  `mongodb+srv://bbde1861:bSrEMDvfbCitwhtU@padonan.whfx4wy.mongodb.net/test`
+);
+
+const productSchema = new mongoose.Schema(
+  {
+    category: String,
+    Name: String,
+    price: Number,
+    count: Number,
+    color: String,
+    specifications: String,
+    handlingPrecautions: String,
+  },
+
+  {
+    timestamps: true,
+    collection: "productSchema", // 주의 collection 이름을 명시하지 않으면 아래 mongoose.model의 첫 번째 인자로 전달된 값을 복수형으로 해서 사용한다.
+  }
+);
+
+module.exports = productSchema;
