@@ -5,6 +5,10 @@ const {
 
 connectToMongoDB();
 
+// category는 Enum 으로 분류한다, default = "ALL"
+// price 는 음수가 들어갈 수 없게 validate 한다.
+// count 는 제품의 남은 수량을 의미한다. 구매시 차감된다.
+// specifications, handlingPrecautions가 추가된다.
 const productSchema = new mongoose.Schema(
   {
     category: {
