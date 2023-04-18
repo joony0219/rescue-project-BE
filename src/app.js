@@ -1,8 +1,15 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const express = require("express");
+const bodyParser = require("body-parser");
 const app = express();
 const port = 3000;
-// const product = require("./dao/productDAO/mongoose/model/product_model.js");
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+// const router = require("./router/");
+// app.use("/board", router);
 
 app.get("/", (req, res) => {
   res.send("Hello World!");

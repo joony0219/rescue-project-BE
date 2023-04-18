@@ -57,4 +57,4 @@ const soldProductSchema = new mongoose.Schema(
   }
 );
 
-module.exports = soldProduct;
+module.exports = soldProductSchema;

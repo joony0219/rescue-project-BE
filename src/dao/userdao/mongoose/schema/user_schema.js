@@ -20,6 +20,9 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    roletype: {
+      type: String,
+    },
   },
 
   {
@@ -28,4 +31,4 @@ const userSchema = new mongoose.Schema(
   }
 );
 
-module.exports = user;
+module.exports = userSchema;
