@@ -11,7 +11,7 @@ connectToMongoDB();
 // specifications, handlingPrecautions는 제외된다.
 const soldProductSchema = new mongoose.Schema(
   {
-    user: {
+    userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "userSchema",
       required: true,
@@ -57,4 +57,4 @@ const soldProductSchema = new mongoose.Schema(
   }
 );
 
-module.exports = soldProduct;
+module.exports = soldProductSchema;
