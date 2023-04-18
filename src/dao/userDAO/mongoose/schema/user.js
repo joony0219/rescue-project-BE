@@ -1,7 +1,7 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const {
   connectToMongoDB,
-} = require("../../../../util/connection/mongo_connect");
+} = require('../../../../util/connection/mongo_connect');
 
 connectToMongoDB();
 
@@ -24,8 +24,8 @@ const userSchema = new mongoose.Schema(
 
   {
     timestamps: true,
-    collection: "User", // 주의 collection 이름을 명시하지 않으면 아래 mongoose.model의 첫 번째 인자로 전달된 값을 복수형으로 해서 사용한다.
+    collection: 'User', // 주의 collection 이름을 명시하지 않으면 아래 mongoose.model의 첫 번째 인자로 전달된 값을 복수형으로 해서 사용한다.
   }
 );
 
-module.exports = user;
+module.exports = userSchema;
