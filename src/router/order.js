@@ -6,8 +6,8 @@ const Order = require('../dao/orderdao/mongoose/model');
 //상품 구매
 orderRouter.post('/orders', isAuth, (req, res) => {
   const userId = req.user._id;
-  const { products, totalPriceser} = req.body
-  const purchase = await Order.create({userId, products, totalPriceser,});
+  const { products, totalPrice} = req.body
+  const purchase = await Order.create({userId, products, totalPrice,});
   res.send(purchase)
 });
 
