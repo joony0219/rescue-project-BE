@@ -26,6 +26,6 @@ app.use("/product", productRouter);
 
 app.use(user);
 
-app.listen(7000, () => {
+app.listen(3000, () => {
   console.log(`Example app listening on port ${port}`);
 });

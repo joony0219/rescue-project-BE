@@ -2,15 +2,9 @@ const { SoldProduct } = require("./mongoose/model/index");
 
 const SoldProductDAO = {
   // document 객체를 생성하여 mongoDB에 저장하는 메소드
-<<<<<<< HEAD
-  async create({ user, category, name, price, soldCount, color }) {
-    const soldProduct = new SoldProduct({
-      user,
-=======
   async create({ userId, category, name, price, soldCount, color }) {
     const soldProduct = new SoldProduct({
       userId,
->>>>>>> sub
       category,
       name,
       price,
