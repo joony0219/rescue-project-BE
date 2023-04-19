@@ -11,6 +11,7 @@ const userSchema = new mongoose.Schema(
     userName: {
       type: String,
       required: true,
+      unique: true,
       validate: {
         validator: (v) => v.length >= 1 && v.length <= 20,
       },

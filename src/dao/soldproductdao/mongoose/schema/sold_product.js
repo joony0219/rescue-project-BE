@@ -5,21 +5,20 @@ const {
 
 connectToMongoDB();
 
-// category는 Enum 으로 분류한다, default = "ALL"
+// category는 Enum 으로 분류한다
 // price 는 음수가 들어갈 수 없게 validate 한다.
 // soldCount 는 팔린 제품의 양을 의미한다. 음수가 들어갈 수 없게 validate 한다.
 // specifications, handlingPrecautions는 제외된다.
 const soldProductSchema = new mongoose.Schema(
   {
-    user: {
+    userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "userSchema",
       required: true,
     },
     category: {
       type: String,
-      enum: ["DRINKWARE", "TABLEWARE", "KICHENWARE", "INTERIOR", "ALL"],
-      default: "ALL",
+      enum: ["TEA", "MUG", "TUMBLER"],
       required: true,
     },
     name: {
