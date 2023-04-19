@@ -22,7 +22,7 @@ app.use(cors());
 app.use(passport.initialize()); // passport 미들웨어 등록
 
 // router
-app.use("/product", productRouter);
+app.use("/products", productRouter);
 
 app.use(user);
 

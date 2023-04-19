@@ -12,7 +12,6 @@ passport.use(
         "f7cbc47fb2a659f6d859db2873c4c6a6f1a341a10a2fac06d176c5411e642339554cc767a628fe66f2ffab7dacb0fb0b14265e6dfdd353dd1417d32a8473e114",
     },
     function (jwtPayload, done) {
-      console.log(jwtPayload.userName);
       // JWT에서 추출한 정보를 이용하여 사용자 조회하기
       User.findOne({ userName: jwtPayload.userName })
         .then((user) => {

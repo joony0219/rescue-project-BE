@@ -24,7 +24,12 @@ const productDAO = {
     // toObject를 이용해서 POJO로 변경.
     return product.toObject();
   },
-  // TODO = 필요에 따라 새로운 DAO접근 메소드를 추가
+
+  // category에 해당하는 제품들을 반환하는 메소드
+  async getProductsByCategory(category) {
+    const products = await Product.find({ category: category }).select("-_id -__v");
+    return products;
+  }
 };
 
 module.exports = productDAO;

@@ -4,12 +4,27 @@ const passport = require("passport");
 const jwt = require("jsonwebtoken");
 const User = require("../../dao/userdao/userDAO");
 const pino = require('pino');
+const productValidation = require("../../util/validate/schema/product_validate");
+const productService = require('../../service/productservice/product_service');
+const commonErrors = require('../../misc/commonErrors');
 
-// passport를 활용한 jwt검증 예시, postman으로 확인해보세요!
-router.get("/test", passport.authenticate("jwt", { session: false }), (req, res) => {
-  const name = req.user.userName;
-  console.log(name);
-  res.send("User page");
+// queryString 의 PRODUCT_CATEGORY를 분별하여 productArray를 return
+router.get("/list", passport.authenticate("jwt", { session: false }), async (req, res, next) => {
+  const category = req.query.category;
+
+  if (productValidation(category) instanceof Error) {
+    return res.status(400).json({ error: "Invalid product request param" });
+  }
+  
+  try {
+    const productArray = await productService.getProduct(category);
+    if (!productArray) {
+      return res.status(404).json({ error: "Product_document not found" });
+    }
+    return res.status(200).json(productArray);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
 });
 
 
