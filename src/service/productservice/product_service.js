@@ -6,11 +6,11 @@ const productService = {
     let products;
     switch (category) {
       case PRODUCT_CATEGORY.TEA:
-        return products = await productDAO.getProductsByCategory('TEA');
+        return products = await productDAO.findProductsByCategory('TEA');
       case PRODUCT_CATEGORY.MUG:
-        return products = await productDAO.getProductsByCategory('MUG');
+        return products = await productDAO.findProductsByCategory('MUG');
       case PRODUCT_CATEGORY.TUMBLER:
-        return products = await productDAO.getProductsByCategory('TUMBLER');
+        return products = await productDAO.findProductsByCategory('TUMBLER');
       default:
         throw {
           name: "ValidationError",

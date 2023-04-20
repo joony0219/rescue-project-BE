@@ -26,7 +26,7 @@ const productDAO = {
   },
 
   // category에 해당하는 제품들을 반환하는 메소드
-  async getProductsByCategory(category) {
+  async findProductsByCategory(category) {
     const products = await Product.find({ category: category }).select("-_id -__v");
     return products;
   }
