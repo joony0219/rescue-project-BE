@@ -23,7 +23,7 @@ passport.use(
         })
         .catch((err) => {
           return done(err, false);
-        });
+      });
     }
   )
 );

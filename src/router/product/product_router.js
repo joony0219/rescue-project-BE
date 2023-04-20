@@ -9,7 +9,7 @@ const productService = require('../../service/productservice/product_service');
 const commonErrors = require('../../misc/commonErrors');
 
 // queryString 의 PRODUCT_CATEGORY를 분별하여 productArray를 return
-router.get("/list", passport.authenticate("jwt", { session: false }), async (req, res, next) => {
+router.get("/list", passport.authenticate("jwt", { session: false, failWithError: true }), async (req, res, next) => {
   const category = req.query.category;
   const offset = parseInt(req.query.offset ? req.query.offset : 0);
   const limit = parseInt(req.query.limit ? req.query.limit : 100);

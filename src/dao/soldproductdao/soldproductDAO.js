@@ -3,14 +3,7 @@ const { SoldProduct } = require("./mongoose/model/index");
 const SoldProductDAO = {
   // document 객체를 생성하여 mongoDB에 저장하는 메소드
   async create({ userId, category, name, price, soldCount, color }) {
-    const soldProduct = new SoldProduct({
-      userId,
-      category,
-      name,
-      price,
-      soldCount,
-      color,
-    });
+    const soldProduct = new SoldProduct({ userId, category, name, price, soldCount, color,});
     await soldProduct.save();
     // toObject를 이용해서 POJO로 변경.
     return soldProduct.toObject();

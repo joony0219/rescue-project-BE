@@ -14,6 +14,7 @@ const authRouter = require("./router/auth/auth_router.js");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const passport = require("passport");
+const pino = require("pino")();
 
 // use libararies
 app.use(bodyParser.urlencoded({ extended: true }));

@@ -3,11 +3,7 @@ const { Order } = require("./mongoose/model/index");
 const OrderDAO = {
   // document 객체를 생성하여 mongoDB에 저장하는 메소드
   async create({ userId, products, totalPrice }) {
-    const order = new Order({
-      userId,
-      products,
-      totalPrice,
-    });
+    const order = new Order({ userId, products, totalPrice,});
     await order.save();
     // toObject를 이용해서 POJO로 변경.
     return order.toObject();

@@ -1,4 +1,5 @@
 const jsonwebtoken = require("jsonwebtoken");
+const pino = require('pino')();
 const secret =
   "f7cbc47fb2a659f6d859db2873c4c6a6f1a341a10a2fac06d176c5411e642339554cc767a628fe66f2ffab7dacb0fb0b14265e6dfdd353dd1417d32a8473e114";
 
@@ -9,7 +10,7 @@ const createAccessTokenWithLogin = (userName) => {
   const token = jsonwebtoken.sign(
     // payload
     {
-      em: userName,
+      userName,
     },
     // 서명을 위한 시크릿값
     secret,
@@ -19,29 +20,22 @@ const createAccessTokenWithLogin = (userName) => {
 };
 
 // return boolean
-const isVerifiedToken = (token) => {
+const isVerifiedToken = (req, res, next) => {
+  const token = req.headers.authorization.split(' ')[1];
   try {
     const decodedToken = jsonwebtoken.verify(token, secret);
     const tokenExpired = new Date(decodedToken.exp * 1000) > new Date();
 
-    if (token === decodedToken) {
-      console.log("Token`s value is matched");
-    } else {
-      console.log("Token`s value is not matched");
-      return false;
+    if (token ==! decodedToken && tokenExpired) {
+      throw new Error('Invalid token');
     }
 
-    if (tokenExpired) {
-      console.log("Token has expired");
-    } else {
-      console.log("Token is still valid");
-      return false;
-    }
-    return true;
+    next();
+
   } catch (err) {
-    console.log("Token verification failed");
-    return false;
-  }
-};
+    pino.error(err);
+    res.status(401).send({ error: 'Invalid token' });
+  };
+}
 
 module.exports = { createAccessTokenWithLogin, isVerifiedToken };

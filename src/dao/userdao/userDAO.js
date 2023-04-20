@@ -11,7 +11,6 @@ const UserDAO = {
     const user = await User.findOne({ userName });
     return user && user.toObject();
   }
-
 };
 
 module.exports = UserDAO;
