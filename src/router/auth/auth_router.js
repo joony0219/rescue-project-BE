@@ -6,6 +6,7 @@ const { createAccessTokenWithLogin, isVerifiedToken } = require('../../util/auth
 const { signupSchema, signupValidation } = require('../../util/validate/schema/signup_validate.js');
 const userService = require("../../service/userservice/user_service.js");
 const { loginSchema, loginValidation } = require('../../util/validate/schema/login_validation.js');
+const AppError = require('../../misc/AppError.js');
 
 //signupValidation을 미리 수행
 router.post("/signup", signupValidation(signupSchema), async (req, res) => {
@@ -29,7 +30,8 @@ router.post("/login", loginValidation(loginSchema), async (req, res) => {
     const isAuthenticate = await userService.authenticateUser(userName, password);
     if (isAuthenticate === true) {
       const accessToken = createAccessTokenWithLogin(userName);
-      return res.status(200).json({ success: true, accessToken });
+      res.cookie('access_token', accessToken, { httpOnly: true });
+      return res.status(200).json({ success: true });
     } else {
       return res.status(401).json({ success: false, message: "Unauthorized" });
     }

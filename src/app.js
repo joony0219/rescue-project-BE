@@ -9,6 +9,7 @@ const port = 3000;
 // variable
 const productRouter = require("./router/product/product_router.js");
 const authRouter = require("./router/auth/auth_router.js");
+const cookieParser = require('cookie-parser');
 
 // add libraries
 const bodyParser = require("body-parser");
@@ -19,6 +20,7 @@ const passport = require("passport");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors());
+app.use(cookieParser());
 app.use(passport.initialize()); // passport 미들웨어 등록
 
 // router
