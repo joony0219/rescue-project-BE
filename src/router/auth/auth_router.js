@@ -19,7 +19,7 @@ router.post("/signup", signupValidation(signupSchema), async (req, res) => {
 });
 
 // 로그인 여부를 파악 (jwt 검수)
-router.post("/signed-in", isVerifiedToken, async (req, res) => {
+router.get("/signed-in", isVerifiedToken, async (req, res) => {
   return res.status(200).json("OK");
 })
 
