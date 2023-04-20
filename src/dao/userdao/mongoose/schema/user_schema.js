@@ -5,7 +5,7 @@ const {
 
 connectToMongoDB();
 
-// 아이디는 1 ~ 20개의 제한 갯수를 가진다. validate한다.
+// userName은 3 ~ 15개의 제한 갯수를 가진다. validate한다.
 const userSchema = new mongoose.Schema(
   {
     userName: {
@@ -13,9 +13,9 @@ const userSchema = new mongoose.Schema(
       required: true,
       unique: true,
       validate: {
-        validator: (v) => v.length >= 1 && v.length <= 20,
+        validator: (v) => v.length >= 3 && v.length <= 15,
       },
-      message: (props) => `${props.value}은(는) 1~20 글자여야 합니다.`,
+      message: (props) => `${props.value}은(는) 3~15 글자여야 합니다.`,
     },
     password: {
       type: String,

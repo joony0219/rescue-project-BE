@@ -4,6 +4,7 @@ const secret =
 
 // TODO = 비 로그인 유저의 random token value 생성 방법 구현
 
+// 로그인시에 AccessToken 발급
 const createAccessTokenWithLogin = (userName) => {
   const token = jsonwebtoken.sign(
     // payload

@@ -7,8 +7,8 @@ const app = express();
 const port = 3000;
 
 // variable
-const { user } = require("./router/index");
 const productRouter = require("./router/product/product_router.js");
+const authRouter = require("./router/auth/auth_router.js");
 
 // add libraries
 const bodyParser = require("body-parser");
@@ -23,8 +23,7 @@ app.use(passport.initialize()); // passport 미들웨어 등록
 
 // router
 app.use("/products", productRouter);
-
-//app.use(user);
+app.use("/auth", authRouter);
 
 app.listen(3000, () => {
   console.log(`Example app listening on port ${port}`);
