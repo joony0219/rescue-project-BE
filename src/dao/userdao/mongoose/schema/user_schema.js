@@ -18,7 +18,7 @@ const userSchema = new mongoose.Schema(
       message: (props) => `${props.value}은(는) 1~20 글자여야 합니다.`,
     },
     password: {
-      type: Number,
+      type: String,
       required: true,
     },
     roletype: {

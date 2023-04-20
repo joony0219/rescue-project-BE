@@ -10,14 +10,17 @@ const commonErrors = require('../../misc/commonErrors');
 
 // queryString 의 PRODUCT_CATEGORY를 분별하여 productArray를 return
 router.get("/list", passport.authenticate("jwt", { session: false }), async (req, res, next) => {
+  
   const category = req.query.category;
+  const offset = parseInt(req.query.offset ? req.query.offset : 0);
+  const limit = parseInt(req.query.offset ? req.query.offset : 100);
 
   if (productValidation(category) instanceof Error) {
     return res.status(400).json({ error: "Invalid product request param" });
   }
   
   try {
-    const productArray = await productService.getProduct(category);
+    const productArray = await productService.getProduct(category, offset, limit);
     if (!productArray) {
       return res.status(404).json({ error: "Product_document not found" });
     }
@@ -30,6 +33,7 @@ router.get("/list", passport.authenticate("jwt", { session: false }), async (req
 
 // 임시 로그인, 토큰 지급
 router.post("/signup", async (req, res) => {
+  
   const { userName, password } = req.body;
 
   try {

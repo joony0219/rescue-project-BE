@@ -2,15 +2,15 @@ const productDAO = require('../../dao/productdao/productDAO');
 const { PRODUCT_CATEGORY } = require('../../commonenum/product_category');
 
 const productService = {
-  async getProduct(category) {
+  async getProduct(category, offset, limit) {
     let products;
     switch (category) {
       case PRODUCT_CATEGORY.TEA:
-        return products = await productDAO.findProductsByCategory('TEA');
+        return products = await productDAO.findProductsByCategory('TEA', offset, limit);
       case PRODUCT_CATEGORY.MUG:
-        return products = await productDAO.findProductsByCategory('MUG');
+        return products = await productDAO.findProductsByCategory('MUG', offset, limit);
       case PRODUCT_CATEGORY.TUMBLER:
-        return products = await productDAO.findProductsByCategory('TUMBLER');
+        return products = await productDAO.findProductsByCategory('TUMBLER', offset, limit);
       default:
         throw {
           name: "ValidationError",
