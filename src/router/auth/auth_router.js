@@ -23,7 +23,6 @@ router.get("/signed-in", isVerifiedToken, async (req, res) => {
   return res.status(200).json("OK");
 })
 
-
 router.post("/login", loginValidation(loginSchema), async (req, res) => {
   const { userName, password } = req.body;
   try {
