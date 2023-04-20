@@ -24,7 +24,7 @@ app.use(passport.initialize()); // passport 미들웨어 등록
 // router
 app.use("/products", productRouter);
 
-app.use(user);
+//app.use(user);
 
 app.listen(3000, () => {
   console.log(`Example app listening on port ${port}`);
