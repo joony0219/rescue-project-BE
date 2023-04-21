@@ -29,6 +29,27 @@ app.use('/products', productRouter);
 app.use('/auth', authRouter);
 app.use(orderRouter);
 
+// error 처리 핸들러
+app.use((error, req, res, next) => {
+  console.log(error);
+  res.statusCode = error.httpCode ?? 500;
+  res.json({
+    error: error.message,
+    data: null,
+  });
+});
+
+// URL Not found Handler
+app.use((req, res, next) => {
+  next(
+    new AppError(
+      commonErrors.resourceNotFoundError,
+      404,
+      "Resource not found"
+    )
+  );
+});
+
 app.listen(3000, () => {
   console.log(`Example app listening on port ${port}`);
 });

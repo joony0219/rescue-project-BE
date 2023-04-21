@@ -1,4 +1,7 @@
 const Joi = require('joi');
+const AppError = require("../../../misc/AppError.js");
+const commonErrors = require("../../../misc/commonErrors.js");
+const pino = require('pino')();
 
 // userName은 3~15글자 제한, password는 5~30 제한
 const signupSchema = Joi.object({
@@ -11,13 +14,15 @@ const signupSchema = Joi.object({
 });
 
 const validateSignup = (signupSchema) => {
-    return (req, res, next) => {
-    const { error } = signupSchema.validate(req.body);
-    if (error) {
-        return res.status(400).json({
-            message: 'Bad request',
-            error: error.details[0].message
-        });
+  return (req, res, next) => {
+    const result = signupSchema.validate(req.body);
+    if (result.error) {
+        pino.error(result.error.details);
+        return next(new AppError(
+          commonErrors.inputError,
+          400,
+          "Bad Request"
+       ));
       }
     next();
   }

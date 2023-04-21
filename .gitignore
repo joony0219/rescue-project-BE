@@ -1,6 +1,6 @@
 node_modules/
 src/test/
-src/util/connection/
+src/util/connection/mongo_connect.js
 
 # Created by https://www.toptal.com/developers/gitignore/api/macos,node,windows,expressionengine
 # Edit at https://www.toptal.com/developers/gitignore?templates=macos,node,windows,expressionengine

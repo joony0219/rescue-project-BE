@@ -6,16 +6,13 @@ const secret =
 // TODO = 비 로그인 유저의 random token value 생성 방법 구현
 
 // 로그인시에 AccessToken 발급
-const createAccessTokenWithLogin = (userName) => {
-  const token = jwt.sign(
-    // payload
-    {
-      userName,
-    },
-    // 서명을 위한 시크릿값
-    secret,
-    { expiresIn: "2h" } // 토큰 유효 시간은 2시간
-  );
+const createAccessTokenWithLogin = async (userName) => {
+  const token = await new Promise((resolve, reject) => {
+    jwt.sign({ userName }, secret, { expiresIn: "2h" }, (err, token) => {
+      if (err) reject(arr);
+      resolve(token);
+    });
+  })
   return token;
 };
 
