@@ -1,4 +1,6 @@
 const express = require('express');
+const passport = require('passport');
+
 const {
   orderProduct,
   soldProduct,
@@ -9,9 +11,23 @@ const {
 const router = express.Router();
 
 //상품주문하기
-router.post('/orders', validateSignup(signupSchema), orderProduct);
+router.post(
+  '/orders',
+  passport.authenticate('http-only-cookie', {
+    session: false,
+    failWithError: true,
+  }),
+  orderProduct
+);
 
 //구매 상품 조회
-router.get('/orders', validateSignup(signupSchema), soldProduct);
+router.get(
+  '/orders',
+  passport.authenticate('http-only-cookie', {
+    session: false,
+    failWithError: true,
+  }),
+  soldProduct
+);
 
 module.exports = router;
