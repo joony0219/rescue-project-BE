@@ -9,7 +9,7 @@ export const orderProduct = async (req, res) => {
   res.send(order);
 };
 
-//
+//구매 목록 조회
 export const soldProduct = async (req, res) => {
   const _id = req.user._id;
   const user = await Order.find({ _id });
