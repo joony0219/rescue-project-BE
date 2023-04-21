@@ -1,17 +1,22 @@
 const { Order } = require('../../dao/orderdao/mongoose/model');
-const { SoldProduct } = require('../../dao/soldproductdao/mongoose');
+const OrderDAO = require('../../dao/orderdao/orderDAO');
+const SoldProduct = require('../../dao/soldproductdao/soldproductDAO');
 
 //상품 구매
-export const orderProduct = async (req, res) => {
-  const _id = req.user._id;
+
+const orderProduct = async (req, res) => {
+  const userName = req.user.userName;
   const { products, totalPrice } = req.body;
-  const order = await Order.create({ _id, products, totalPrice });
-  res.send(order);
+  const order = await OrderDAO.create({ userName, products, totalPrice });
+  const sold = await SoldProduct.create(order);
+  res.send(sold);
 };
 
 //구매 목록 조회
-export const soldProduct = async (req, res) => {
-  const _id = req.user._id;
-  const user = await Order.find({ _id });
+const soldProduct = async (req, res) => {
+  const userName = req.user.userName;
+  const user = await SoldProduct.find({ userName });
   res.send(user);
 };
+
+module.exports = { orderProduct, soldProduct };
