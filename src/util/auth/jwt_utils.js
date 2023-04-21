@@ -24,9 +24,9 @@ const verifyToken = (req, res, next) => {
   const token = req.headers.authorization.split(' ')[1];
   try {
     const decodeToken = jwt.verify(token, secret);
-    const expireToken = new Date(decodeToken.exp * 1000) > new Date();
+    const notExpireToken = new Date(decodeToken.exp * 1000) > new Date();
 
-    if (token ==! decodeToken && expireToken) {
+    if (token ==! decodeToken && notExpireToken) {
       throw new Error('Invalid token');
     }
 

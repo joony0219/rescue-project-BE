@@ -3,7 +3,7 @@ const pino = require('pino')();
 const { PRODUCT_CATEGORY } = require('../../../commonenum/product_category');
 
 // req type = string
-const productValidation = (category) => {
+const validateProduct = (category) => {
   const schema = Joi.string().valid(...Object.values(PRODUCT_CATEGORY));
   const result = schema.validate(category);
 
@@ -15,4 +15,4 @@ const productValidation = (category) => {
   }
 };
 
-module.exports = productValidation;
+module.exports = validateProduct;
