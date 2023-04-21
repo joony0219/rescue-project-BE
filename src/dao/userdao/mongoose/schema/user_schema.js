@@ -5,7 +5,6 @@ const {
 
 connectToMongoDB();
 
-// userName은 3 ~ 15개의 제한 갯수를 가진다. validate한다.
 const userSchema = new mongoose.Schema(
   {
     userName: {
@@ -23,6 +22,29 @@ const userSchema = new mongoose.Schema(
     },
     roletype: {
       type: String,
+    },
+    phoneNumber: {
+      type: Number,
+      unique: true,
+      validate: {
+        validator: (v) => /^[0-9]{3,15}$/.test(v),
+        message: (props) => `${props.value}은(는) 올바른 전화번호 형식이 아닙니다.`,
+      },
+    },
+    mail: {
+      type: String,
+      unique: true,
+      validate: {
+        validator: (v) => /^.{1,50}$/.test(v),
+        message: (props) => `${props.value}은(는) 1~50 글자여야 합니다.`,
+      },
+    },
+    address: {
+      type: String,
+      validate: {
+        validator: (v) => /^.{1,200}$/.test(v),
+        message: (props) => `${props.value}은(는) 1~200 글자여야 합니다.`,
+      },
     },
   },
 

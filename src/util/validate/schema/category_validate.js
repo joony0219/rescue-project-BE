@@ -2,11 +2,10 @@ const Joi = require('joi');
 const pino = require('pino')();
 const { PRODUCT_CATEGORY } = require('../../../commonenum/product_category');
 
-const schema = Joi.string().valid(...Object.values(PRODUCT_CATEGORY));
-
 // req type = string
 const validateCategory = () => (req, res, next) => {
   const category = req.query.category;
+  const schema = Joi.string().valid(...Object.values(PRODUCT_CATEGORY));
   const result = schema.validate(category);
 
   if (result.error) {

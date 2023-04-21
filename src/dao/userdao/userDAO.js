@@ -1,8 +1,8 @@
 const { User } = require("./mongoose/model/index");
 
 const UserDAO = {
-  async create({ userName, password }) {
-    const user = new User({ userName, password });
+  async create({ userName, password, roletype, phoneNumber, mail, address  }) {
+    const user = new User({ userName, password, roletype, phoneNumber, mail, address });
     await user.save();
     return user.toObject();
   },

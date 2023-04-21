@@ -2,15 +2,15 @@ const userDAO = require('../../dao/userdao/userDAO.js');
 const { hashPassword, comparePassword } = require('../../util/encrypt/hash_password.js');
 const pino = require('pino')();
 
-const userService = {
-    async createUser(userName, password) {
+const authService = {
+    async createUser(userName, password, roletype, phoneNumber, mail, address ) {
       try {
         const existingUser = await userDAO.findByUserName(userName);
         if (existingUser) {
           throw new Error("User already exists");
         }
         const hashed = await hashPassword(password);
-        const newUser = await userDAO.create({ userName, password: hashed });
+        const newUser = await userDAO.create({ userName, password: hashed, roletype, phoneNumber, mail, address  });
         return newUser;
       } catch (error) {
         // 예외 처리
@@ -37,4 +37,4 @@ const userService = {
   }
 }
   
-module.exports = userService;
+module.exports = authService;
