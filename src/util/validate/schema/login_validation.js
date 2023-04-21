@@ -6,7 +6,7 @@ const loginSchema = Joi.object({
     password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{5,30}$')).required()
 });
 
-const loginValidation = (loginSchema) => {
+const validateLogin = (loginSchema) => {
     return (req, res, next) => {
     const { error } = loginSchema.validate(req.body);
     if (error) {
@@ -19,4 +19,4 @@ const loginValidation = (loginSchema) => {
   }
 }
 
-module.exports = { loginSchema, loginValidation };
+module.exports = { loginSchema, validateLogin };

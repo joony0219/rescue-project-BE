@@ -1,4 +1,4 @@
-const jsonwebtoken = require("jsonwebtoken");
+const jwt = require("jsonwebtoken");
 const pino = require('pino')();
 const secret =
   "f7cbc47fb2a659f6d859db2873c4c6a6f1a341a10a2fac06d176c5411e642339554cc767a628fe66f2ffab7dacb0fb0b14265e6dfdd353dd1417d32a8473e114";
@@ -7,7 +7,7 @@ const secret =
 
 // 로그인시에 AccessToken 발급
 const createAccessTokenWithLogin = (userName) => {
-  const token = jsonwebtoken.sign(
+  const token = jwt.sign(
     // payload
     {
       userName,
@@ -20,13 +20,13 @@ const createAccessTokenWithLogin = (userName) => {
 };
 
 // return boolean
-const isVerifiedToken = (req, res, next) => {
+const verifyToken = (req, res, next) => {
   const token = req.headers.authorization.split(' ')[1];
   try {
-    const decodedToken = jsonwebtoken.verify(token, secret);
-    const tokenExpired = new Date(decodedToken.exp * 1000) > new Date();
+    const decodeToken = jwt.verify(token, secret);
+    const expireToken = new Date(decodeToken.exp * 1000) > new Date();
 
-    if (token ==! decodedToken && tokenExpired) {
+    if (token ==! decodeToken && expireToken) {
       throw new Error('Invalid token');
     }
 
@@ -38,4 +38,4 @@ const isVerifiedToken = (req, res, next) => {
   };
 }
 
-module.exports = { createAccessTokenWithLogin, isVerifiedToken };
+module.exports = { createAccessTokenWithLogin, verifyToken };
