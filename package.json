@@ -1,7 +1,7 @@
 {
   "name": "rescue_project",
   "version": "1.0.0",
-  "description": "",
+  "description": "![20230417_102852](/uploads/d2c42a4069ef6c0d823501e802b96356/20230417_102852.png)",
   "scripts": {
     "start": "node src",
     "start:dev": "nodemon --watch src/*"
@@ -16,11 +16,19 @@
     "joi": "^17.9.1",
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^7.0.3",
+    "p": "^0.2.0",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.1",
     "pino": "^8.11.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.22"
-  }
+  },
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://kdt-gitlab.elice.io/sw_track/class_04/web_project/team09/rescue_be.git"
+  },
+  "author": "",
+  "license": "ISC"
 }

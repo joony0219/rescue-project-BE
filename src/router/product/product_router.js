@@ -7,7 +7,6 @@ const pino = require('pino')();
 const validateProduct = require("../../util/validate/schema/product_validate");
 const productService = require('../../service/productservice/product_service');
 const commonErrors = require('../../misc/commonErrors');
-const validateProduct = require("../../util/validate/schema/product_validate");
 
 // queryString 의 PRODUCT_CATEGORY를 분별하여 productArray를 return
 router.get("/list", passport.authenticate('http-only-cookie', { session: false, failWithError: true }), async (req, res, next) => {
