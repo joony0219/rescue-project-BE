@@ -3,7 +3,8 @@ const passportJWT = require("passport-jwt");
 const JWTStrategy = passportJWT.Strategy;
 const ExtractJWT = passportJWT.ExtractJwt;
 const User = require("../../dao/userdao/mongoose/model/user_model");
-
+const path = require('path');
+require('dotenv').config({ path: path.resolve(__dirname, '../../../.env') })
 
 const cookieExtractor = function(req) {
   let token;
@@ -18,8 +19,7 @@ passport.use(
   new JWTStrategy(
     {
       jwtFromRequest: cookieExtractor,
-      secretOrKey:
-        "f7cbc47fb2a659f6d859db2873c4c6a6f1a341a10a2fac06d176c5411e642339554cc767a628fe66f2ffab7dacb0fb0b14265e6dfdd353dd1417d32a8473e114",
+      secretOrKey: process.env.JWT_SECRET,
       passReqToCallback: true // req를 콜백 함수에 전달하도록 추가
     },
     function (req, jwtPayload, done) // req 인수 추가

@@ -5,7 +5,7 @@ const authController = require("../../controller/authcontroller/auth_controller.
 const { signupSchema, validateSignup } = require('../../util/validate/schema/signup_validate.js');
 const { loginSchema, validateLogin } = require('../../util/validate/schema/login_validation.js');
 
-// /auth 
+// URL = /auth 
 
 router.post("/signup", 
   validateSignup(signupSchema), 

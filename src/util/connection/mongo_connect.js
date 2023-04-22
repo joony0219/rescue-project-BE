@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const path = require('path');
+require('dotenv').config({ path: path.resolve(__dirname, '../../../.env') });
 
 const connectToMongoDB = async () => {
   mongoose.connection.on('connecting', () => {
@@ -19,7 +21,7 @@ const connectToMongoDB = async () => {
 
   try {
     await mongoose.connect(
-      'mongodb+srv://bbde1861:bSrEMDvfbCitwhtU@padonan.whfx4wy.mongodb.net/test',
+      process.env.MONGODB_URI,
       {
         useNewUrlParser: true,
         useUnifiedTopology: true,

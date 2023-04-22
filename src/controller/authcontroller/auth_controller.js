@@ -20,7 +20,7 @@ const authController = {
     async postLogin(req, res, next) {
       const { userName, password } = req.body;
       const isAuthenticate = await authService.authenticateUser(userName, password);
-        
+      
         if (isAuthenticate) {
           const accessToken = await createAccessTokenWithLogin(userName);
           res.cookie('access_token', accessToken, { httpOnly: true });

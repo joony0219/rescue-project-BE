@@ -1,15 +1,15 @@
 const jwt = require("jsonwebtoken");
 const pino = require('pino')();
-const secret =
-  "f7cbc47fb2a659f6d859db2873c4c6a6f1a341a10a2fac06d176c5411e642339554cc767a628fe66f2ffab7dacb0fb0b14265e6dfdd353dd1417d32a8473e114";
-
-// TODO = 비 로그인 유저의 random token value 생성 방법 구현
+const AppError = require('../../misc/AppError.js');
+const commonErrors = require('../../misc/commonErrors.js');
+const path = require('path');
+require('dotenv').config({ path: path.resolve(__dirname, '../../../.env') });
 
 // 로그인시에 AccessToken 발급
 const createAccessTokenWithLogin = async (userName) => {
   const token = await new Promise((resolve, reject) => {
-    jwt.sign({ userName }, secret, { expiresIn: "2h" }, (err, token) => {
-      if (err) reject(arr);
+    jwt.sign({ userName },  process.env.JWT_SECRET, { expiresIn: "2h" }, (err, token) => {
+      if (err) reject(new AppError(commonErrors.authenticationError, 401, "Unauthorized"));
       resolve(token);
     });
   })
@@ -17,22 +17,22 @@ const createAccessTokenWithLogin = async (userName) => {
 };
 
 // return boolean
-const verifyToken = (req, res, next) => {
-  const token = req.headers.authorization.split(' ')[1];
-  try {
-    const decodeToken = jwt.verify(token, secret);
-    const notExpireToken = new Date(decodeToken.exp * 1000) > new Date();
+// const verifyToken = (req, res, next) => {
+//   const token = req.headers.authorization.split(' ')[1];
+//   try {
+//     const decodeToken = jwt.verify(token, secret);
+//     const notExpireToken = new Date(decodeToken.exp * 1000) > new Date();
 
-    if (token ==! decodeToken && notExpireToken) {
-      throw new Error('Invalid token');
-    }
+//     if (token ==! decodeToken && notExpireToken) {
+//       throw new AppError(commonErrors.authenticationError, 401, "Unauthorized");
+//     }
 
-    next();
+//     next();
 
-  } catch (err) {
-    pino.error(err);
-    res.status(401).send({ error: 'Invalid token' });
-  };
-}
+//   } catch(err) {
+//     pino.error(err);
+//     next(err);
+//   };
+// }
 
-module.exports = { createAccessTokenWithLogin, verifyToken };
+module.exports = { createAccessTokenWithLogin };

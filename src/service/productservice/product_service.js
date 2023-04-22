@@ -19,8 +19,8 @@ const productService = {
               throw new AppError(commonErrors.resourceNotFoundError, 404, "Not found");
         }
       } catch (error) {
-        pino.log(error);
-        return new AppError("findProductsByCategory failed", 500, "Internal Server Error");
+         pino.log(error);
+         return new AppError("findProductsByCategory failed", 500, "Internal Server Error");
     }
   },
 };
