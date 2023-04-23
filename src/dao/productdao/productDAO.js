@@ -14,7 +14,7 @@ const productDAO = {
   },
 
   async findProductsByCategory(category, offset, limit) {
-    const products = await Product.find({ category: category }).select("-__v")
+    const products = await Product.find({ category }).select("-__v")
                                   .skip(offset)
                                   .limit(limit)
                                   .exec();

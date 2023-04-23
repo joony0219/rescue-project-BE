@@ -1,6 +1,5 @@
 const userDAO = require('../dao/userdao/userDAO.js');
 const { hashPassword, comparePassword } = require('../util/encrypt/hash_password.js');
-const pino = require('pino')();
 const AppError = require('../misc/AppError.js');
 const commonErrors = require('../misc/commonErrors');
 const logger = require("../util/logger/pino.js");
