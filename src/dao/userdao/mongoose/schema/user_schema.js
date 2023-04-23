@@ -1,9 +1,5 @@
 const mongoose = require("mongoose");
-const {
-  connectToMongoDB,
-} = require("../../../../util/connection/mongo_connect");
-
-connectToMongoDB();
+const ROLETYPE = require("../../../../util/commonenum/roletype.js");
 
 const userSchema = new mongoose.Schema(
   {
@@ -20,16 +16,13 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    roletype: {
+    roleType: {
       type: String,
+      required: true
     },
     phoneNumber: {
-      type: Number,
-      unique: true,
-      validate: {
-        validator: (v) => /^[0-9]{3,15}$/.test(v),
-        message: (props) => `${props.value}은(는) 올바른 전화번호 형식이 아닙니다.`,
-      },
+      type: String,
+      unique: true
     },
     mail: {
       type: String,
@@ -50,7 +43,7 @@ const userSchema = new mongoose.Schema(
 
   {
     timestamps: true,
-    collection: "User", // 주의 collection 이름을 명시하지 않으면 아래 mongoose.model의 첫 번째 인자로 전달된 값을 복수형으로 해서 사용한다.
+    collection: "users", // 주의 collection 이름을 명시하지 않으면 아래 mongoose.model의 첫 번째 인자로 전달된 값을 복수형으로 해서 사용한다.
   }
 );
 

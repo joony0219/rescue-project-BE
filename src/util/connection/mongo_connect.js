@@ -19,19 +19,13 @@ const connectToMongoDB = async () => {
     console.log(`Mongoose에서 에러가 발생하였습니다: ${error}`);
   });
 
-  try {
     await mongoose.connect(
       process.env.MONGODB_URI,
       {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
         minPoolSize: 4, // min pool size 설정
         maxPoolSize: 100, // max pool size 설정
       }
     );
-  } catch (error) {
-    console.error(error);
-  }
 };
 
 module.exports = {

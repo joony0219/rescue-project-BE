@@ -1,22 +1,31 @@
 const { Product } = require("./mongoose/model/product_model");
+const logger = require("../../util/logger/pino.js");
 
 const productDAO = {
-  // document 객체를 생성하여 mongoDB에 저장하는 메소드
   async create({ category, name, price, count, color, specifications, handlingPrecautions }) {
-    const product = new Product({ category, name, price, count, color, specifications, handlingPrecautions,});
+    const product = new Product({ category, name, price, count, color, specifications, handlingPrecautions });
     await product.save();
-    // toObject를 이용해서 POJO로 변경.
     return product.toObject();
   },
 
-  // category에 해당하는 제품들을 반환하는 메소드
+  async createMany(products) {
+    const results = await Product.insertMany(products);
+    return results.map(result => result.toObject());
+  },
+
   async findProductsByCategory(category, offset, limit) {
-    const products = await Product.find({ category: category }).select("-_id -__v")
+    const products = await Product.find({ category: category }).select("-__v")
                                   .skip(offset)
                                   .limit(limit)
                                   .exec();
     return products;
   },
+
+  async findProductById(id) {
+    const product = await Product.findById(id);
+    return product;
+  }
+
 };
 
 module.exports = productDAO;
