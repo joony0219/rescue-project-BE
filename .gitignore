@@ -2,7 +2,7 @@ node_modules/
 src/test/
 src/util/connection/mongo_connect.js
 .vscode/
-.env
+./env
 logs/
 
 # Created by https://www.toptal.com/developers/gitignore/api/macos,node,windows,expressionengine
