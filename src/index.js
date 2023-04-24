@@ -1,5 +1,7 @@
 const app = require('./app.js');
+const path = require('path');
+require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
 
-app.listen(port, () => {
-  console.log(`Server is listening on port ${3000}`);
+app.listen(process.env.PORT, () => {
+  console.log(`Server is listening on port ${process.env.PORT}`);
 });
