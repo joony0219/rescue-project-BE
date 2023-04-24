@@ -9,7 +9,7 @@ const passport = require('passport');
 const AppError = require('./misc/AppError.js');
 const commonErrors = require('./misc/commonErrors.js');
 const morgan = require('morgan');
-const accessLogStream = require("./util/logger/access_log_steam.js");
+const { accessLogStream } = require("./util/logger/access_log_steam.js");
 const logger = require("./util/logger/pino.js");
 const moment = require('moment-timezone');  
 require('./middleware/passport/passport.js');

@@ -1,6 +1,6 @@
-const { Order } = require('../../dao/orderdao/mongoose/model');
-const OrderDAO = require('../../dao/orderdao/orderDAO');
-const SoldProduct = require('../../dao/soldproductdao/soldproductDAO');
+const { Order } = require('../dao/orderdao/mongoose/model/order_model.js');
+const OrderDAO = require('../dao/orderdao/orderDAO');
+const SoldProduct = require('../dao/soldproductdao/soldproductDAO');
 
 //상품 구매
 

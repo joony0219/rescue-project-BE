@@ -5,7 +5,7 @@ const router = express.Router();
 const {
   orderProduct,
   soldProduct,
-} = require('../../service/orderservice/order_service');
+} = require('../../service/order_service');
 
 //상품주문하기
 router.post(

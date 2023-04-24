@@ -8,6 +8,7 @@ fs.existsSync(logsDir) || fs.mkdirSync(logsDir);
 
 // 오늘 날짜로 파일명 생성
 const logFileName = `access_${moment().format('YYYY-MM-DD')}.log`;
-const accessLogStream = fs.createWriteStream(path.join(logsDir, logFileName), { flags: 'a' });
+const logFile = path.join(logsDir, logFileName);
+const accessLogStream = fs.createWriteStream(logFile, { flags: 'a' });
 
-module.exports = accessLogStream;
+module.exports = { accessLogStream, logFile };

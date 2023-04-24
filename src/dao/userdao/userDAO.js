@@ -20,10 +20,6 @@ const UserDAO = {
       logger.info(error);
       throw new AppError(`Failed to findOne userName: ${error.message}`, 500, "Internal Server Error");
     });
-    if (!user) {
-      logger.info("findProductById Error, User is null");
-      throw new AppError("findProductById Error", 404, "Not Found");
-    }
     return user;
   }
 };
