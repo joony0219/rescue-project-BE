@@ -1,22 +1,72 @@
 const { Product } = require("./mongoose/model/product_model");
+const logger = require("../../util/logger/pino.js");
+const AppError = require("../../misc/AppError");
+const commonErrors = require("../../misc/commonErrors");
 
 const productDAO = {
-  // document 객체를 생성하여 mongoDB에 저장하는 메소드
   async create({ category, name, price, count, color, specifications, handlingPrecautions }) {
-    const product = new Product({ category, name, price, count, color, specifications, handlingPrecautions,});
-    await product.save();
-    // toObject를 이용해서 POJO로 변경.
-    return product.toObject();
+    try {
+      const product = new Product({ category, name, price, count, color, specifications, handlingPrecautions });
+      await product.save();
+      return product.toObject();
+    } catch (error) {
+      logger.info(error);
+      throw new AppError(commonErrors.databaseError, 500, "Internal Server Error");
+    }
   },
 
-  // category에 해당하는 제품들을 반환하는 메소드
+  async createMany(products) {
+    const results = await Product.insertMany(products).catch((error) => {
+      logger.info(error);
+      throw new AppError(commonErrors.databaseError, 500, "Internal Server Error");
+    });;
+    return results.map(result => result.toObject());
+  },
+
   async findProductsByCategory(category, offset, limit) {
-    const products = await Product.find({ category: category }).select("-_id -__v")
+    const products = await Product.find({ category }, { _id: 1, category: 1, name: 1, price: 1, count: 1, updatedAt:1, createdAt: 1}, { count: { $gte: 1 }})
                                   .skip(offset)
                                   .limit(limit)
-                                  .exec();
+                                  .exec()
+                                  .catch((error) => {
+                                    logger.info(error);
+                                    throw new AppError(commonErrors.databaseError, 500, "Internal Server Error");
+                                  });
     return products;
   },
+
+  async findProductById(id) {
+    const product = await Product.findById(id).lean().select("-__v").catch((error) => {
+      logger.info(error);
+      throw new AppError(commonErrors.databaseError, 500, "Internal Server Error");
+    });
+    if (!product) {
+      logger.info("findProductById Error");
+      throw new AppError("findProductById Error", 404, "Not Found");
+    }
+    return product;
+  },
+
+  async findProductByIdAndDelete(id) {
+    const product = await Product.findByIdAndRemove(id).catch((error) => {
+      logger.info(error);
+      throw new AppError(commonErrors.databaseError, 500, "Internal Server Error");
+    });
+    return product;
+  },
+
+  async findProductByName(productName) {
+    const product = await Product.findOne({ name: productName }).catch((error) => {
+      logger.info(error);
+      throw new AppError(commonErrors.databaseError, 500, "Internal Server Error");
+    });
+    if (!product) {
+      logger.info("findProductByName Error");
+      throw new AppError("findProductByName Error", 404, "Not Found");
+    }
+    return product;   
+  },
+
 };
 
 module.exports = productDAO;

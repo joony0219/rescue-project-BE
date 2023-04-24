@@ -1,16 +1,15 @@
 const Joi = require('joi');
 const pino = require('pino')();
-const { PRODUCT_CATEGORY } = require('../../../commonenum/product_category');
+const { PRODUCT_CATEGORY } = require('../../../util/commonenum/product_category');
 const AppError = require("../../../misc/AppError.js");
 const commonErrors = require("../../../misc/commonErrors.js");
 
-const CategorySchema = Joi.string().valid(...Object.values(PRODUCT_CATEGORY));
+const categorySchema = Joi.string().valid(...Object.values(PRODUCT_CATEGORY));
 
 // req type = string
-const validateCategory = (CategorySchema) => (req, res, next) => {
+const validateCategory = async (req, res, next) => {
     const category = req.query.category;
-    const result = CategorySchema.validate(category);
-
+    const result = categorySchema.validate(category);
     if (result.error) {
      pino.error(result.error.details);
      return next(new AppError(
@@ -19,8 +18,7 @@ const validateCategory = (CategorySchema) => (req, res, next) => {
        "Bad Request"
      ));
    }
-
   next();
 };
 
-module.exports = { validateCategory, CategorySchema };
+module.exports = { validateCategory, categorySchema };

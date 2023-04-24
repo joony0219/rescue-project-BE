@@ -3,6 +3,6 @@ const buildResponse = (error, data) => {
         error: error ?? null,
         data: data
     }
-} 
+}
 
 module.exports = buildResponse;
