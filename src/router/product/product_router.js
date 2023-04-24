@@ -9,13 +9,11 @@ const { validateProducts, validateProductId } = require("../../middleware/valida
 
 // queryString 의 PRODUCT_CATEGORY를 분별하여 productArray를 return
 router.get("/list", 
-  passport.authenticate('http-only-cookie', { session: false, failWithError: true }), 
   validateCategory,
   productController.getProducts
 );
 
 router.get("/detail",
-  passport.authenticate('http-only-cookie', { session: false, failWithError: true }),
   validateProductId,
   productController.getOneProduct
 );
