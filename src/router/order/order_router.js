@@ -13,7 +13,7 @@ router.post(
   passport.authenticate('http-only-cookie', {
     session: false,
     failWithError: true,
-  }),
+  }),    
   orderProduct
 );
 
@@ -24,6 +24,7 @@ router.get(
     session: false,
     failWithError: true,
   })
+
 );
 
 module.exports = router;

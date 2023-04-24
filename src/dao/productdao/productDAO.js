@@ -32,10 +32,6 @@ const productDAO = {
                                     logger.info(error);
                                     throw new AppError(commonErrors.databaseError, 500, "Internal Server Error");
                                   });
-    if (!products) {
-      logger.info("Failed to findProductsByCatogry");
-      throw new AppError("Failed to find products", 404, "Not Found");
-    }
     return products;
   },
 
