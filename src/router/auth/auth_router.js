@@ -27,6 +27,6 @@ router.post("/login",
 router.post("/logout",
   passport.authenticate('http-only-cookie', { session: false, failWithError: true }),
   authController.postLogout
-)
+);
 
 module.exports = router;
