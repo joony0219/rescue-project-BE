@@ -18,14 +18,13 @@ router.get("/detail",
   passport.authenticate('http-only-cookie', { session: false, failWithError: true }),
   validateProductId,
   productController.getOneProduct
-)
+);
 
 // need admin verify
 router.post("/add",
- passport.authenticate('http-only-cookie-use-admin', { session: false, failWithError: true }),
- validateProducts,
- productController.postProducts
-)
-
+  passport.authenticate('http-only-cookie-use-admin', { session: false, failWithError: true }),
+  validateProducts,
+  productController.postProducts
+);
 
 module.exports = router;

@@ -1,15 +1,29 @@
 const { User } = require("./mongoose/model/index");
 const logger = require("../../util/logger/pino.js");
+const AppError = require("../../misc/AppError");
+const commonErrors = require("../../misc/commonErrors");
 
 const UserDAO = {
   async create({ userName, password, roleType, phoneNumber, mail, address }) {
-    const user = new User({ userName, password, roleType, phoneNumber, mail, address });
-    const saveUser = await user.save();
-    return user.toObject();
+    try {
+      const user = new User({ userName, password, roleType, phoneNumber, mail, address });
+      await user.save()
+      return user.toObject();
+    } catch (error) {
+      logger.info(error);
+      throw new AppError(`Failed to create user: ${error.message}`, 500, "Internal Server Error");
+    }
   },
 
   async findByUserName(userName) {
-    const user = await User.findOne({ userName }).lean();
+    const user = await User.findOne({ userName }).lean().catch((error) => {
+      logger.info(error);
+      throw new AppError(`Failed to findOne userName: ${error.message}`, 500, "Internal Server Error");
+    });
+    if (!user) {
+      logger.info("findProductById Error, User is null");
+      throw new AppError("findProductById Error", 404, "Not Found");
+    }
     return user;
   }
 };
