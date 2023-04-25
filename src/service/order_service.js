@@ -1,22 +1,21 @@
-const { Order } = require('../dao/orderdao/mongoose/model/order_model.js');
-const OrderDAO = require('../dao/orderdao/orderDAO');
-const SoldProduct = require('../dao/soldproductdao/soldproductDAO');
+const orderDAO = require('../dao/orderdao/orderDAO.js');
+const userDAO = require('../dao/userdao/userDAO.js');
+const productDAO = require('../dao/productdao/productDAO.js');
 
-//상품 구매
+const orderService = {
+  async createOrders(userName, products) {
+    const user = await userDAO.findByUserName(userName);
+    const userId = user._id;
+    const orders = [];
+    for (const item of products.orders) {
+      const product = await productDAO.findProductByName(item.name);
+      const productId = product._id;
+      const count = item.count;
+      orders.push({ productId, count })
+    }
+    await orderDAO.create({ userId, products: orders });
+  },
 
-const orderProduct = async (req, res) => {
-  const userName = req.user.userName;
-  const { products, totalPrice } = req.body;
-  const order = await OrderDAO.create({ userName, products, totalPrice });
-  const sold = await SoldProduct.create(order);
-  res.send({ sold, msg: '구매완료' });
-};
+}
 
-//구매 목록 조회
-const soldProduct = async (req, res) => {
-  const userName = req.user.userName;
-  const user = await SoldProduct.find({ userName });
-  res.send(user);
-};
-
-module.exports = { orderProduct, soldProduct };
+module.exports =  orderService;

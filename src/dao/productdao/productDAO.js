@@ -19,7 +19,7 @@ const productDAO = {
     const results = await Product.insertMany(products).catch((error) => {
       logger.info(error);
       throw new AppError(commonErrors.databaseError, 500, "Internal Server Error");
-    });;
+    });
     return results.map(result => result.toObject());
   },
 
@@ -66,6 +66,7 @@ const productDAO = {
     }
     return product;   
   },
+
 
 };
 

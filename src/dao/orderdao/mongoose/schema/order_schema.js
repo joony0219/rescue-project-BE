@@ -18,16 +18,6 @@ const orderSchema = new mongoose.Schema(
           ref: "productSchema",
           required: true,
         },
-        price: {
-          type: Number,
-          required: true,
-          validate: {
-            validator: function (v) {
-              return v >= 0;
-            },
-            message: () => `가격은 음수일 수 없습니다.`,
-          },
-        },
         count: {
           type: Number,
           required: true,
@@ -40,16 +30,6 @@ const orderSchema = new mongoose.Schema(
         },
       },
     ],
-    // totalPrice: {
-    //   type: Number,
-    //   required: true,
-    //   validate: {
-    //     validator: function (v) {
-    //       return v >= 0;
-    //     },
-    //     message: () => `총 가격은 음수일 수 없습니다.`,
-    //   },
-    // },
   },
 
   {

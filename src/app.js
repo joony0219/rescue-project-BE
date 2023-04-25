@@ -31,7 +31,10 @@ const PORT = process.env.PORT;
 // use libararies
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(cors());
+app.use(cors({
+  origin: true,
+  credentials: true,
+}));
 app.use(cookieParser());
 app.use(passport.initialize()); // passport 미들웨어 등록
 app.use(morgan('combined', { stream: accessLogStream, immediate: true}, logger )); // morgan을 이용한 일별 로깅
@@ -41,7 +44,7 @@ connectToMongoDB();
 // router
 app.use('/product', productRouter);
 app.use('/auth', authRouter);
-app.use(orderRouter);
+app.use('/order', orderRouter);
 
 
 // URL Not found Handler

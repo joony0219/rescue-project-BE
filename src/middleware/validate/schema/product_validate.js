@@ -17,12 +17,12 @@ const productIdSchema = Joi.object({
 
 const productsSchema = Joi.object({
     category: Joi.string().valid(...Object.values(PRODUCT_CATEGORY)),
-    name: Joi.string().pattern(new RegExp('^[a-zA-Z0-9\\s]{1,100}$')).required(),
+    name: Joi.string().pattern(new RegExp('^[a-zA-Z0-9가-힣\\s.,/#-]{1,500}$')).required(),
     price: Joi.string().pattern(new RegExp('^[0-9]{1,10}$')).required(),
     count: Joi.string().pattern(new RegExp('^[0-9]{1,10}$')).required(),
     color: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{1,100}$')),
-    specifications: Joi.string().pattern(new RegExp('^[a-zA-Z0-9\\s\\.]{1,5000}$')),
-    handlingPrecautions: Joi.string().pattern(new RegExp('^[a-zA-Z0-9\\s]{1,5000}$')),
+    specifications: Joi.string().pattern(new RegExp('^[a-zA-Z0-9가-힣\\s.,/#-]{1,5000}$')),
+    handlingPrecautions: Joi.string().pattern(new RegExp('^[a-zA-Z0-9가-힣\\s.,/#-]{1,5000}$')),
 });
 
 // req type = string
