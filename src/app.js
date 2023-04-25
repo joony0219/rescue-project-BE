@@ -41,7 +41,7 @@ connectToMongoDB();
 // router
 app.use('/product', productRouter);
 app.use('/auth', authRouter);
-app.use(orderRouter);
+app.use('/order', orderRouter);
 
 
 // URL Not found Handler
