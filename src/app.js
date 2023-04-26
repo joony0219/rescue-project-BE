@@ -29,6 +29,7 @@ const PORT = process.env.PORT;
 
 
 // use libararies
+app.set("trust proxy", 1);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors({
@@ -42,9 +43,9 @@ connectToMongoDB();
 
 
 // router
-app.use('/product', productRouter);
-app.use('/auth', authRouter);
-app.use('/order', orderRouter);
+app.use('/api/product', productRouter);
+app.use('/api/auth', authRouter);
+app.use('/api/order', orderRouter);
 
 
 // URL Not found Handler
