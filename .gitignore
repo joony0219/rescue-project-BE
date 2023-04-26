@@ -1,5 +1,4 @@
 node_modules/
-src/test/
 src/util/connection/mongo_connect.js
 .vscode/
 ./env

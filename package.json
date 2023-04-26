@@ -4,7 +4,8 @@
   "description": "![20230417_102852](/uploads/d2c42a4069ef6c0d823501e802b96356/20230417_102852.png)",
   "scripts": {
     "start": "node src",
-    "start:dev": "nodemon --watch src/*"
+    "start:dev": "nodemon --watch src/*",
+    "test": "jest"
   },
   "dependencies": {
     "bcrypt": "^5.1.0",
@@ -26,6 +27,10 @@
     "pino-pretty": "^10.0.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.21.4",
+    "@babel/preset-env": "^7.21.4",
+    "babel-jest": "^29.5.0",
+    "jest": "^29.5.0",
     "nodemon": "^2.0.22"
   },
   "main": "index.js",
