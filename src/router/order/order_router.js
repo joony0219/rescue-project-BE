@@ -29,10 +29,21 @@ router.get(
     failWithError: true,
   }),
   async (req, res) => {
+    const userName = req.user.userName;
     const user = await UserDAO.findByUserName(userName);
     const userId = user._id;
-    const soldProduct = await SoldProduct.find({ userId });
-    return res.status(200).json(buildResponse(null, soldProduct));
+    const me = await User.find({ userName }).select(
+      'userName phoneNumber mail address createdAt'
+    );
+    const order = await Order.find({ userId });
+    const products = order.map((v) => {
+      return v.products;
+    });
+    total = {
+      user: me,
+      order: products,
+    };
+    return res.status(200).json(buildResponse(null, total));
   }
 );
 
