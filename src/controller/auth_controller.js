@@ -1,6 +1,7 @@
 const authService = require("../service/auth_service.js");
 const { createAccessTokenWithLogin } = require('../middleware/jwt/jwt_utils.js');
 const buildResponse = require("../util/response/response_builder.js");
+const logger = require("../util/logger/pino.js");
 
 const authController = {
     async postSignup(req, res, next) {
@@ -25,6 +26,7 @@ const authController = {
         res.cookie('access_token', accessToken, { httpOnly: true });
         return res.status(200).json(buildResponse(null, null));
       } catch (error) {
+        logger.info(error);
         next(error);
       }
     },
