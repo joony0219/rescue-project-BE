@@ -11,7 +11,7 @@ describe("createUser", () => {
     jest.clearAllMocks();
   });
 
-  test("should create a new user if the user does not exist", async () => {
+  test("CASE 1, createUser success", async () => {
 
     // ================ ACT ==============================
     const userName = "john123";
@@ -64,7 +64,8 @@ describe("createUser", () => {
     });
   });
 
-  test("should throw an error if the user already exists", async () => {
+  test("CASE 2, Failed, User already exists", async () => {
+    // ================ ACT ==============================
     const userName = "john123";
     const password = "abc123456789";
     const roleType = "user";
@@ -81,6 +82,7 @@ describe("createUser", () => {
       address,
     });
 
+    // ================ Assert ==============================
     await expect(
       authService.createUser(
         userName,
@@ -99,7 +101,7 @@ describe("authenticateUser", () => {
       jest.clearAllMocks();
     });
   
-    test("authenticate user if userName and password is matched", async () => {
+    test("CASE 1, authenticateUser success", async () => {
         // ================ ACT ==============================
         const userName = "john123";
         const password = "abc123456789";
@@ -138,5 +140,32 @@ describe("authenticateUser", () => {
           hashedPasswordForFind
         );  
         expect(result).toEqual(undefined);
+    });
+
+    test("CASE 2, Failed, comparePassword is not matched", async() => {
+        // ================ ACT ==============================
+        const userName = "john123";
+        const password = "abc123456789";
+        const roleType = "user";
+        const phoneNumber = "123-1234-5678";
+        const mail = "john123@example.com";
+        const address = "서울시 동작구";
+        const mockErrorData = new AppError("Unauthorized");
+    
+        userDAO.findByUserName.mockResolvedValue({
+            userName,
+            password,
+            roleType,
+            phoneNumber,
+            mail,
+            address
+        });
+        comparePassword.mockRejectedValue(mockErrorData);
+    
+        // ================ Assert ==============================
+        await expect(authService.authenticateUser(userName, password)).rejects.toThrow(
+            "Unauthorized"
+          );
+          expect(userDAO.findByUserName).toHaveBeenCalledWith(userName);
     });
 });
