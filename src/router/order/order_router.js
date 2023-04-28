@@ -46,7 +46,6 @@ router.get(
       total = {
         user: me,
         order: [],
-        createdAt: order[0].createdAt,
       };
     } else {
       const products = order
