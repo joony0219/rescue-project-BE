@@ -39,31 +39,39 @@ router.get(
     const me = await User.find({ userName }).select(
       'userName phoneNumber mail address createdAt'
     );
+
     const order = await Order.find({ userId });
-    const products = order
-      .map((v) => {
-        return v.products.map((v) => {
-          return v.productId;
+    if (order.length < 1) {
+      total = {
+        user: me,
+        order: [],
+      };
+    } else {
+      const products = order
+        .map((v) => {
+          return v.products.map((v) => {
+            return v.productId;
+          });
+        })
+        .filter((v) => {
+          if (v.length !== 0) return v;
+        })
+        .reduce(function (acc, cur) {
+          return acc.concat(cur);
         });
-      })
-      .filter((v) => {
-        if (v.length !== 0) return v;
-      })
-      .reduce(function (acc, cur) {
-        return acc.concat(cur);
-      });
 
-    const allProducts = await Promise.all(
-      products.map(async (v) => {
-        const r = await Product.findOne({ _id: v });
-        return r;
-      })
-    );
+      const allProducts = await Promise.all(
+        products.map(async (v) => {
+          const r = await Product.findOne({ _id: v });
+          return r;
+        })
+      );
 
-    total = {
-      user: me,
-      order: allProducts,
-    };
+      total = {
+        user: me,
+        order: allProducts,
+      };
+    }
 
     return res.status(200).json(buildResponse(null, total));
   }
