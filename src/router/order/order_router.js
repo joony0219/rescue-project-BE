@@ -41,10 +41,12 @@ router.get(
     );
 
     const order = await Order.find({ userId });
+
     if (order.length < 1) {
       total = {
         user: me,
         order: [],
+        createdAt: order[0].createdAt,
       };
     } else {
       const products = order
@@ -70,6 +72,7 @@ router.get(
       total = {
         user: me,
         order: allProducts,
+        createdAt: order[0].createdAt,
       };
     }
 
