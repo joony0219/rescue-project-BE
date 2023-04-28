@@ -18,6 +18,7 @@ const userSchema = new mongoose.Schema(
     },
     roleType: {
       type: String,
+      enum: Object.values(ROLETYPE),
       required: true
     },
     phoneNumber: {

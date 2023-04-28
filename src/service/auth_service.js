@@ -23,7 +23,7 @@ const authService = {
     const findUser = await userDAO.findByUserName(userName);
     const match = await comparePassword(password, findUser.password).catch((error) => {
       logger.info(error);
-      throw new AppError("comeparePassword fail", 500, "Internal Server Error");
+      throw new AppError("comeparePassword fail", 401, "Unauthorized");
     });
     if (!match) {
       logger.info("password do not match");

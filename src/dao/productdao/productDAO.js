@@ -40,10 +40,6 @@ const productDAO = {
       logger.info(error);
       throw new AppError(commonErrors.databaseError, 500, "Internal Server Error");
     });
-    if (!product) {
-      logger.info("findProductById Error");
-      throw new AppError("findProductById Error", 404, "Not Found");
-    }
     return product;
   },
 
@@ -60,10 +56,6 @@ const productDAO = {
       logger.info(error);
       throw new AppError(commonErrors.databaseError, 500, "Internal Server Error");
     });
-    if (!product) {
-      logger.info("findProductByName Error");
-      throw new AppError("findProductByName Error", 404, "Not Found");
-    }
     return product;   
   },
 

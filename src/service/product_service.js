@@ -28,11 +28,6 @@ const productService = {
     const product = await productDAO.findProductById(id);
     return product;
   },
-
-  async deleteProduct(productName) {
-    const product = await productDAO.findProductByName(productName);
-    return product;
-  }
 };
 
 module.exports = productService;
